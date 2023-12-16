@@ -202,6 +202,10 @@ build/nr-gnb -c config/free5gc-gnb.yaml
 sudo build/nr-ue -c config/free5gc-ue.yaml
 ```
 
+## Installing the Virtual Environment 
+
+To install the virtual test environment, please, refer to the file [VMs-setup.md](./VMs-setup.md)
+
 <!-- TODO: Finish merging the info below
 
 ### NWDAF Structure
