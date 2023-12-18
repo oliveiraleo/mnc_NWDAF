@@ -27,7 +27,15 @@ sudo nano /etc/hostname
 ```
 **NOTE:** As the VMs are clones, don't forget to change their hostnames to avoid confusion
 
-### 3. Install a player on UERANSIM
+### 3. Change the [FQDN](https://en.wikipedia.org/wiki/Fully_qualified_domain_name)
+
+```
+sudo nano /etc/hosts
+```
+
+Update the hostname (and/or domain) on the line that begins with the IP `127.0.1.1`. If unsure, use the same hostname as the used on the command above.
+
+### 4. Install a player on UERANSIM
 
 To load the video on UERANSIM's machine, install the MPV player
 
@@ -39,11 +47,11 @@ sudo apt install mpv
 
 ### Ping machine
 
-As the ping utility comes by default on the OS, this is the easiest machine to setup. Once the system is installed, just run the first two commands from the [prerequisites section](./VMs-setup.md#prerequisites).
+As the ping utility comes by default on the OS, this is the easiest machine to setup. Once the system is installed, just run the first three commands from the [prerequisites section](./VMs-setup.md#prerequisites).
 
 ### Webserver machine
 
-For this machine we will use the free5GC website. After the OS is setup, follow the instructions on [its repo README file](https://github.com/free5gc/free5gc.github.io#readme). 
+For this machine we will use the free5GC website. After the OS is setup (and the three commands from the [prerequisites section](./VMs-setup.md#prerequisites) are executed), follow the instructions below which are based on [its repo README file](https://github.com/free5gc/free5gc.github.io#readme). 
 
 **TIP:** To better compatibility, install the pip requirements inside a python venv and use this env to run the webserver
 
