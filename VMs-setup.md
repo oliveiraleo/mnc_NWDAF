@@ -85,6 +85,19 @@ cd # get back to the home folder
 TODO: wget command
 ```
 
+#### Running the Webserver
+
+To run the webserver during the tests, execute the commands below
+
+```
+# Enter the source code folder
+cd free5gc.github.io/
+# Enable the virtual environment
+source pyvenv/bin/activate
+# Run the server
+mkdocs serve -a 172.16.0.212:8000
+```
+
 <!-- TODO: Create an autodeploy sript -->
 
 ### Video repository machine
@@ -131,6 +144,8 @@ http://172.16.0.211/example-clock.mp4
 **Note:** Don't forget to connect using the tun interface `uesimtun0`
 
 ### Applications
+
+The commands of this section should be run on the UERANSIM machine except for the capture ones that should be run on the free5GC machine
 
 #### Ping
 
