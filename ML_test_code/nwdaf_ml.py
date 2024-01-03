@@ -122,9 +122,9 @@ def train(model):
 
 def load_model(path):
     try:
-        save_file = 'model.pkl'
+        # save_file = 'model.pkl'
         # Load variables from file
-        with open(save_file, 'rb') as file:
+        with open(path, 'rb') as file:
             label_encoder = pickle.load(file)
             protocol_encoder = pickle.load(file)
             scaler = pickle.load(file)
