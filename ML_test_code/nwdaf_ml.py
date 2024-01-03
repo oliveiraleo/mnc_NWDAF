@@ -94,19 +94,20 @@ def train(model):
     print("Precision:", precision_score(y_test, y_pred, average='weighted'))
     print("Recall:", recall_score(y_test, y_pred, average='weighted'))
     print("F1-score:", f1_score(y_test, y_pred, average='weighted'))
-    
+
     conf_matrix = confusion_matrix(y_test, y_pred)
     print("Confusion Matrix:")
     print(conf_matrix)
 
     # Plot confusion matrix as a heatmap
-    sns.heatmap(conf_matrix, annot=True, fmt="d", cmap="Blues", xticklabels=y_label_encoder.classes_, yticklabels=y_label_encoder.classes_)
+    sns.heatmap(conf_matrix, annot=True, fmt="d", cmap="Blues", xticklabels=label_encoder.classes_, yticklabels=label_encoder.classes_)
     plt.title("Confusion Matrix")
     plt.xlabel("Predicted Label")
     plt.ylabel("True Label")
-    # plt.savefig("results/training_confusion_matrix.pdf")
-    # plt.show()
 
+    plt.savefig("results/training_confusion_matrix.pdf")
+    plt.show()
+    
     # File name to save data
     save_file = 'model.pkl'
 
