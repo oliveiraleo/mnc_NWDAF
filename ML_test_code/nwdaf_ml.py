@@ -5,7 +5,7 @@ import pickle
 from glob import glob
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score, confusion_matrix
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
 
 
 def train(model):
@@ -94,7 +94,6 @@ def train(model):
     print("Precision:", precision_score(y_test, y_pred, average='weighted'))
     print("Recall:", recall_score(y_test, y_pred, average='weighted'))
     print("F1-score:", f1_score(y_test, y_pred, average='weighted'))
-    #print("AUC-ROC:", roc_auc_score(y_test, y_pred, average='weighted', multi_class='ovr'))
     
     conf_matrix = confusion_matrix(y_test, y_pred)
     print("Confusion Matrix:")
@@ -105,7 +104,8 @@ def train(model):
     plt.title("Confusion Matrix")
     plt.xlabel("Predicted Label")
     plt.ylabel("True Label")
-    #plt.show()
+    # plt.savefig("results/training_confusion_matrix.pdf")
+    # plt.show()
 
     # File name to save data
     save_file = 'model.pkl'
@@ -184,7 +184,7 @@ def inference(file, label_encoder,protocol_encoder, scaler, model):
     probabilities_df = pd.concat([probabilities_df,pd.Series(predicted_classes, name='predicted_class')], axis=1)
 
     print(probabilities_df)
-    # TODO -> Save df
+    probabilities_df.to_csv("./results/inference_class_probability.csv") # save the probabilities
 
 def main():
     while True:
