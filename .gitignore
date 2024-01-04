@@ -1,0 +1,8 @@
+# Python venv (change it to yours if needed)
+pyvenv/
+
+# Ignore the ML model binary file
+*.pkl
+
+# ML results folder
+ML_test_code/results/*
