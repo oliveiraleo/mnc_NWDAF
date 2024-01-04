@@ -2,6 +2,8 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import pickle
+import os
+
 from glob import glob
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.model_selection import train_test_split
@@ -80,8 +82,8 @@ def train(model):
         model = DecisionTreeClassifier()
 
     else: 
-        print("Modelo Inexistente!")
-        exit()
+        print(f"[ERROR] Option {model} for model doesn't exist")
+        main() # returns to the main menu
 
     # Training the model on the training data
     model.fit(X_train, y_train)
@@ -106,7 +108,7 @@ def train(model):
     plt.ylabel("True Label")
 
     plt.savefig("results/training_confusion_matrix.pdf")
-    plt.show()
+    # plt.show() # DEBUG
     
     # File name to save data
     save_file = 'model.pkl'
@@ -133,7 +135,7 @@ def load_model(path):
         return  label_encoder,protocol_encoder, scaler, model
    
     except:
-        print("Import error, check the file!")
+        print("[ERROR] Import error, check if the file exists on", path)
 
 def inference(file, label_encoder,protocol_encoder, scaler, model):
 
@@ -188,46 +190,47 @@ def inference(file, label_encoder,protocol_encoder, scaler, model):
     probabilities_df.to_csv("./results/inference_class_probability.csv") # save the probabilities
 
 def main():
+    working_dir = os.getcwd()
+
     while True:
-        print()
-        print("Choose an option:")
+        # print()
+        print("\nChoose an option:")
         print('1 - Train and save model')
         print('2 - Load model')
         print('3 - Inference')
         print("4 - Exit the program")
 
-        e = input()
+        e = input("Your input: ")
 
         if e == '1': 
-            print()
-            print("Model")
+            # print()
+            print("\nChoose a model:")
             print('1 - Random Forest Classifier')
             print('2 - Mult Layer Perceptron Classifier')
             print('3 - Decision Tree Classifier')
-            m = input()
+            m = input("Input: ")
             label_encoder,protocol_encoder, scaler, model = train(m)
 
         if e == '2': 
-            print()
-            print("Path to files:")
-            p = input ()
+            # p = working_dir + "/ML_test_code/model.pkl"
+            p = working_dir + "/model.pkl"
+            print("\n[INFO] Loading the model file located at")
+            print("[INFO] ", p)
             label_encoder,protocol_encoder, scaler, model = load_model(p)
 
         if e == '3': 
             print()
             print("Path to files:")
-            p = input ()
+            p = input("Input: ")
             try:
                 inference(p,label_encoder,protocol_encoder, scaler, model)
             except:
                 print("Error!")
 
         if e == '4': 
-            print()
-            print("Exiting the program")
+            print("\n[INFO] Exiting the program...")
             exit()
 
 
 if __name__ == "__main__":
-
     main()
