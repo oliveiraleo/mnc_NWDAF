@@ -196,6 +196,7 @@ def inference(file, label_encoder,protocol_encoder, scaler, model):
     probabilities_df = pd.concat([probabilities_df,pd.Series(predicted_classes, name="predicted_class")], axis=1)
 
     print(probabilities_df)
+    print("\n Classes:", probabilities_df.value_counts(subset="predicted_class")) # TODO Calc the share of each class for any given input
     probabilities_df.to_csv("./results/inference_class_probability.csv", index_label="line_num") # save the probabilities
 
 def main():
