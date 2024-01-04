@@ -15,9 +15,18 @@ def train(model):
     
     df=[]
     labels = ['ping','video','web']
-    for f in range(len(files)):
-        df.append(pd.read_csv(files[f]))
-        df[f]['label'] = [labels[f] for i in range(len(df[f]))]
+
+    try:
+        for f in range(len(files)):
+            df.append(pd.read_csv(files[f]))
+            df[f]['label'] = [labels[f] for i in range(len(df[f]))]
+    except IndexError:
+        print("\n[ERROR] IndexError: list index out of range")
+        print("[INFO] Labels loaded:", labels)
+        print(f"[INFO] Make sure you have {len(files)} labels instead of {len(labels)}")
+        print("[INFO] because they must match as each file belongs to one class (label)")
+        exit()
+    
     df = pd.concat(df,ignore_index=True)
 
     df.drop(columns=['Info',
@@ -98,8 +107,8 @@ def train(model):
     print("F1-score:", f1_score(y_test, y_pred, average='weighted'))
 
     conf_matrix = confusion_matrix(y_test, y_pred)
-    print("Confusion Matrix:")
-    print(conf_matrix)
+    print("[DEBUG] Confusion Matrix:") #DEBUG
+    print(conf_matrix) #DEBUG
 
     # Plot confusion matrix as a heatmap
     sns.heatmap(conf_matrix, annot=True, fmt="d", cmap="Blues", xticklabels=label_encoder.classes_, yticklabels=label_encoder.classes_)
@@ -187,7 +196,7 @@ def inference(file, label_encoder,protocol_encoder, scaler, model):
     probabilities_df = pd.concat([probabilities_df,pd.Series(predicted_classes, name='predicted_class')], axis=1)
 
     print(probabilities_df)
-    probabilities_df.to_csv("./results/inference_class_probability.csv") # save the probabilities
+    probabilities_df.to_csv("./results/inference_class_probability.csv", index_label="line_num") # save the probabilities
 
 def main():
     working_dir = os.getcwd()
@@ -217,18 +226,25 @@ def main():
             print("\n[INFO] Loading the model file located at")
             print("[INFO] ", p)
             label_encoder,protocol_encoder, scaler, model = load_model(p)
+            print("[INFO] Model successfully loaded")
 
         if e == '3': 
             print()
-            print("Path to files:")
+            print("Provite the name to the CSV file located on the inference folder:")
             p = input("Input: ")
+            p = working_dir + "/inference/" + p
             try:
                 inference(p,label_encoder,protocol_encoder, scaler, model)
-            except:
-                print("Error!")
+            except ValueError as valueErr:
+                print("[ERROR]", type(valueErr).__name__, valueErr)
+                print("[ERROR] Could not find some labels")
+                print("[INFO] Check the labels from the training data and inference to make sure they match")
+            except Exception as error:
+                print("[INFO] Read the file from: ", p)
+                print("[ERROR]", type(error).__name__, error)
 
         if e == '4': 
-            print("\n[INFO] Exiting the program...")
+            print("\n[INFO] Exiting the program...\n")
             exit()
 
 
