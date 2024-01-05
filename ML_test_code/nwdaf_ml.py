@@ -3,6 +3,8 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import pickle
 import os
+import traceback 
+import sys
 
 from glob import glob
 from sklearn.preprocessing import LabelEncoder, StandardScaler
@@ -195,8 +197,19 @@ def inference(file, label_encoder,protocol_encoder, scaler, model):
 
     probabilities_df = pd.concat([probabilities_df,pd.Series(predicted_classes, name="predicted_class")], axis=1)
 
-    print(probabilities_df)
-    print("\n Classes:", probabilities_df.value_counts(subset="predicted_class")) # TODO Calc the share of each class for any given input
+    # Calculate the frequency of each label
+    probabilities_count_df = probabilities_df.value_counts(subset="predicted_class")
+    print("[DEBUG] Labels and their occurrences:\n", probabilities_count_df)
+
+    # Calculate the total number of occurrences of all labels on input data
+    total_occurrences = probabilities_count_df.sum()
+
+    # Print the label of the class with the highest number of occurrences
+    most_frequent_class_label = probabilities_count_df.idxmax()
+    #probability_of_class = TODO calculate this, if necessary
+    print("[INFO] Inference: The class of the input probably is", most_frequent_class_label) #TODO save this result somewhere
+    # print(f"[INFO] with {probability_of_class}% of chance")
+
     probabilities_df.to_csv("./results/inference_class_probability.csv", index_label="line_num") # save the probabilities
 
 def main():
@@ -240,6 +253,8 @@ def main():
                 print("[INFO] Check the labels from the training data and inference to make sure they match")
             except Exception as error:
                 print("[INFO] Read the file from: ", p)
+                # printing stack trace 
+                traceback.print_exception(*sys.exc_info())
                 print("[ERROR]", type(error).__name__, error)
 
         if e == '4': 
