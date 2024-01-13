@@ -6,6 +6,7 @@ import os
 import traceback 
 import sys
 
+from datetime import datetime
 from glob import glob
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.model_selection import train_test_split
@@ -209,8 +210,14 @@ def inference(file, label_encoder,protocol_encoder, scaler, model):
     #probability_of_class = TODO calculate this, if necessary
     print("[INFO] Inference: The class of the input probably is", most_frequent_class_label) #TODO save this result somewhere
     # print(f"[INFO] with {probability_of_class}% of chance")
+    
+    # Get the current date and time
+    current_time = datetime.now()
 
-    probabilities_df.to_csv("./results/inference_class_probability.csv", index_label="line_num") # save the probabilities
+    # Format and print the current time
+    formatted_time = current_time.strftime("%Y-%m-%d_%H-%M-%S")
+    
+    probabilities_df.to_csv(f"./results/inference_class_probability_{type(model).__name__}_{formatted_time}.csv", index_label="line_num") # save the probabilities
 
 def main():
     working_dir = os.getcwd() # get the current working directory where the script was called
