@@ -5,6 +5,7 @@ import pickle
 import os
 import traceback 
 import sys
+import hashlib
 
 from datetime import datetime
 from glob import glob
@@ -12,6 +13,9 @@ from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
 
+
+def hash_ip(ip):
+    return int(hashlib.md5(ip.encode('utf-8')).hexdigest(), 16)
 
 def train(model):
     files = glob("./train/*.csv")
@@ -34,8 +38,9 @@ def train(model):
 
     df.drop(columns=["Info",
                      "No.",
-                     "Source",
-                     "Destination"], 
+                     # "Source",
+                     # "Destination"
+                     ], 
                      axis=1,
                      inplace=True)
     
@@ -55,13 +60,15 @@ def train(model):
         if df[col].dtype == "object":
             if col == "Protocol":
                 df[col] = protocol_encoder.fit_transform(df[col])
+            elif col == "Source"  or col == "Destination":
+                df[col] = df[col].apply(hash_ip)
             else:
                 df[col] = label_encoder.fit_transform(df[col])
 
     # Normalizing features using standardization
     scaler = StandardScaler()
-    scaler.fit(df[["Length", "Duration"]])
-    df[["Length", "Duration"]] = scaler.transform(df[["Length", "Duration"]])
+    scaler.fit(df[["Length", "Duration","Source","Destination"]])
+    df[["Length", "Duration","Source","Destination"]] = scaler.transform(df[["Length", "Duration","Source","Destination"]])
 
     # Splitting the data into training and testing sets
     X = df.drop(columns=["Time",
@@ -99,7 +106,12 @@ def train(model):
 
     # Training the model on the training data
     model.fit(X_train, y_train)
-
+    
+    # print()
+    # importance_with_columns = pd.DataFrame({'feature': X_train.columns, 'importance': model.feature_importances_})
+    # print(importance_with_columns)
+    # print()
+    
     # Predicting the class labels for the test data
     y_pred = model.predict(X_test)
 
@@ -149,14 +161,16 @@ def load_model(path):
     except:
         print("[ERROR] Import error, check if the file exists on", path)
 
+
 def inference(file, label_encoder,protocol_encoder, scaler, model):
 
     df = pd.read_csv(file)
 
     df.drop(columns=["Info",
                      "No.",
-                     "Source",
-                     "Destination"], axis=1, inplace=True)
+                     #"Source",
+                     #"Destination"
+                     ], axis=1, inplace=True)
     
     df["Time"] = pd.to_datetime(df["Time"])
 
@@ -167,16 +181,19 @@ def inference(file, label_encoder,protocol_encoder, scaler, model):
 
     # Dropping rows with missing values
     df = df.dropna()
-
+    
     # Encoding categorical features using Label Encoding
     for col in df.columns:
         if df[col].dtype == "object":
             if col == "Protocol":
                 df[col] = protocol_encoder.transform(df[col])
+            elif col == "Source"  or col == "Destination":
+                df[col] = df[col].apply(hash_ip)
             else:
                 df[col] = label_encoder.transform(df[col])
     
-    df[["Length", "Duration"]] = scaler.transform(df[["Length", "Duration"]])
+    # df[["Length", "Duration"]] = scaler.transform(df[["Length", "Duration"]])
+    df[["Length", "Duration","Source","Destination"]] = scaler.transform(df[["Length", "Duration","Source","Destination"]])
 
     # Getting the names of the LabelEncoder classes
     class_names = label_encoder.classes_
@@ -249,7 +266,7 @@ def main():
 
         if e == '3': 
             print()
-            print("Provite the name to the CSV file located on the inference folder:")
+            print("Provide the name to the CSV file located on the inference folder:")
             p = input("Input: ")
             p = working_dir + "/inference/" + p
             try:
