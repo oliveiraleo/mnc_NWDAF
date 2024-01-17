@@ -92,7 +92,7 @@ Download the page list using
 
 ```
 cd # get back to the home folder
-TODO: wget command
+wget https://github.com/oliveiraleo/mnc_NWDAF/raw/mnc_Public-5G/extra-files/pagelist.txt
 ```
 
 #### Running the Webserver
@@ -120,12 +120,18 @@ sudo apt install apache2
 2. Download the video file to the machine
 
 ```
-TODO: wget command
+cd # get back to the home folder
+wget https://github.com/oliveiraleo/mnc_NWDAF/raw/mnc_Public-5G/extra-files/example-clock.mp4
 ```
 
 3. Copy it to the folder located in `/var/www/html/`
 
+```
+cp ~/example-clock.mp4 /var/www/html/
+```
+
 4. Change the file permissions to allow webserver users to view it
+
 ```
 cd /var/www/html/
 sudo chmod 644 example-clock.mp4
