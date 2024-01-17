@@ -196,6 +196,7 @@ Use the webconsole for that, the detailed instructions are [located here](https:
 ### 4. To run UERANSIM, use:
 
 ```
+cd UERANSIM
 # gnb
 build/nr-gnb -c config/free5gc-gnb.yaml
 # ue
