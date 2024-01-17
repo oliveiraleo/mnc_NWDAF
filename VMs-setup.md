@@ -186,8 +186,10 @@ sudo ip route add 172.16.0.212/32 dev uesimtun0
 **NOTE:** The configuration setup by the command above is deleted after a system reboot
 
 ```
-wget -i pagelist.txt > /dev/null
+wget -i pagelist.txt -q -O /dev/null
 ```
+
+**NOTE:** `-q` suppresses the output and `-O` redirects the output (in this case to `/dev/null`, which means it deletes the downloaded files)
 
 Capture command
 
