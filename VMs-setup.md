@@ -4,11 +4,21 @@ This instructions and additional information aim to help setting up the environm
 
 ## Requirements
 
-### Hardware
+In order to run the tests, please, make sure the requirements are met
 
-TODO
+### Hardware (minimum requirements)
+
+- free5GC (2 CPU cores + 2GB RAM)
+- UERANSIM (2 CPU cores + 2GB RAM)
+- The 3 servers (2 CPU cores + 2GB RAM each)
+
 ### Software
-TODO
+
+- free5GC v3.3.0
+- UERANSIM v3.2.6
+- go 1.18.10
+- tshark 3.2.3-1  
+
 
 ## Prerequisites
 
@@ -98,8 +108,6 @@ source pyvenv/bin/activate
 mkdocs serve -a 172.16.0.212:8000
 ```
 
-<!-- TODO: Create an autodeploy sript -->
-
 ### Video repository machine
 
 The last one will have an example video file that will be streamed by the UE
@@ -149,7 +157,13 @@ The commands of this section should be run on the UERANSIM machine except for th
 
 #### Ping
 
+The command used to generate the ping traffic was
+
+```
 ping -I uesimtun0 172.16.0.210
+```
+
+And variations with the flags and values `-s` (packet size) 80 and 1400 and `-i` (interval) 0.2, 0.25, 0.5, 0.75, 2 seconds. The destination IPs were 172.16.0.210, 1.1.1.1 and 8.8.8.8
 
 Capture command
 ```
@@ -188,7 +202,7 @@ Then choose one of the commands below to start streaming the video
 # If the VM has graphical interface
 mpv http://172.16.0.211/example-clock.mp4
 # If not, to run on console only mode use
-mpv --vo=caca http://172.16.0.211/example-clock.mp4 
+mpv --vo=caca http://172.16.0.211/example-clock.mp4
 ```
 Source for the command above: [vitux.com](https://vitux.com/play-a-video-in-the-ubuntu-command-line-just-for-fun/)
 
