@@ -1,3 +1,4 @@
+import datetime as dt
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -6,6 +7,7 @@ import os
 import traceback 
 import sys
 import hashlib
+import time1 as t
 
 from datetime import datetime
 from glob import glob
@@ -254,8 +256,11 @@ def main():
             print("2 - Mult Layer Perceptron Classifier")
             print("3 - Decision Tree Classifier")
             m = input("Input: ")
+            start = t.time()
             label_encoder,protocol_encoder, scaler, model = train(m)
-
+            end = t.time()
+            print("Execution time:",dt.timedelta(seconds=end - start))
+            
         if e == '2': 
             # p = working_dir + "/ML_test_code/model.pkl"
             p = working_dir + "/model.pkl"
@@ -270,7 +275,10 @@ def main():
             p = input("Input: ")
             p = working_dir + "/inference/" + p
             try:
+                start = t.time()
                 inference(p,label_encoder,protocol_encoder, scaler, model)
+                end = t.time()
+                print("Execution time:",dt.timedelta(seconds=end - start))
             except ValueError as valueErr:
                 print("[ERROR]", type(valueErr).__name__, valueErr)
                 print("[ERROR] Could not find some labels")
