@@ -7,7 +7,7 @@ import os
 import traceback 
 import sys
 import hashlib
-import time1 as t
+import time as t
 
 from datetime import datetime
 from glob import glob
@@ -20,7 +20,7 @@ def hash_ip(ip):
     return int(hashlib.md5(ip.encode('utf-8')).hexdigest(), 16)
 
 def train(model):
-    files = glob("./train/*.csv")
+    files = glob("./dataset/trainning/*.csv")
     
     df=[]
     labels = ["ping","video","web"]
@@ -40,8 +40,8 @@ def train(model):
 
     df.drop(columns=["Info",
                      "No.",
-                     # "Source",
-                     # "Destination"
+                     "Source",
+                     "Destination"
                      ], 
                      axis=1,
                      inplace=True)
@@ -69,8 +69,10 @@ def train(model):
 
     # Normalizing features using standardization
     scaler = StandardScaler()
-    scaler.fit(df[["Length", "Duration","Source","Destination"]])
-    df[["Length", "Duration","Source","Destination"]] = scaler.transform(df[["Length", "Duration","Source","Destination"]])
+    # scaler.fit(df[["Length", "Duration","Source","Destination"]])
+    # df[["Length", "Duration","Source","Destination"]] = scaler.transform(df[["Length", "Duration","Source","Destination"]])
+    scaler.fit(df[["Length", "Duration"]])
+    df[["Length", "Duration"]] = scaler.transform(df[["Length", "Duration"]])
 
     # Splitting the data into training and testing sets
     X = df.drop(columns=["Time",
@@ -109,15 +111,19 @@ def train(model):
     # Training the model on the training data
     model.fit(X_train, y_train)
     
-    # print()
-    # importance_with_columns = pd.DataFrame({'feature': X_train.columns, 'importance': model.feature_importances_})
-    # print(importance_with_columns)
-    # print()
+    print("\n[INFO] Weight of each feature:")
+    try:
+        importance_with_columns = pd.DataFrame({'feature': X_train.columns, 'importance': model.feature_importances_})
+        print(f"\n{importance_with_columns}\n")
+    except AttributeError:
+        print("\n[INFO] MLP doens't come with this functionality")
+        print("[INFO] see https://datascience.stackexchange.com/a/44737 for more information\n")
     
     # Predicting the class labels for the test data
     y_pred = model.predict(X_test)
 
     # Evaluating the model performance
+    print("[DEBUG] Performance's statistical data:")
     print("Accuracy:", accuracy_score(y_test, y_pred))
     print("Precision:", precision_score(y_test, y_pred, average="weighted"))
     print("Recall:", recall_score(y_test, y_pred, average="weighted"))
@@ -170,8 +176,8 @@ def inference(file, label_encoder,protocol_encoder, scaler, model):
 
     df.drop(columns=["Info",
                      "No.",
-                     #"Source",
-                     #"Destination"
+                     "Source",
+                     "Destination"
                      ], axis=1, inplace=True)
     
     df["Time"] = pd.to_datetime(df["Time"])
@@ -189,13 +195,13 @@ def inference(file, label_encoder,protocol_encoder, scaler, model):
         if df[col].dtype == "object":
             if col == "Protocol":
                 df[col] = protocol_encoder.transform(df[col])
-            elif col == "Source"  or col == "Destination":
-                df[col] = df[col].apply(hash_ip)
+            # elif col == "Source"  or col == "Destination":
+            #     df[col] = df[col].apply(hash_ip)
             else:
                 df[col] = label_encoder.transform(df[col])
     
-    # df[["Length", "Duration"]] = scaler.transform(df[["Length", "Duration"]])
-    df[["Length", "Duration","Source","Destination"]] = scaler.transform(df[["Length", "Duration","Source","Destination"]])
+    df[["Length", "Duration"]] = scaler.transform(df[["Length", "Duration"]])
+    # df[["Length", "Duration","Source","Destination"]] = scaler.transform(df[["Length", "Duration","Source","Destination"]])
 
     # Getting the names of the LabelEncoder classes
     class_names = label_encoder.classes_
@@ -259,7 +265,7 @@ def main():
             start = t.time()
             label_encoder,protocol_encoder, scaler, model = train(m)
             end = t.time()
-            print("Execution time:",dt.timedelta(seconds=end - start))
+            print("[INFO] Execution time:", dt.timedelta(seconds=end - start))
             
         if e == '2': 
             # p = working_dir + "/ML_test_code/model.pkl"
@@ -273,7 +279,7 @@ def main():
             print()
             print("Provide the name to the CSV file located on the inference folder:")
             p = input("Input: ")
-            p = working_dir + "/inference/" + p
+            p = working_dir + "/dataset/inference/" + p
             try:
                 start = t.time()
                 inference(p,label_encoder,protocol_encoder, scaler, model)
