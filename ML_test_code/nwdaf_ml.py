@@ -85,7 +85,7 @@ def train(model):
     y_label_encoder.fit(y_str)
     y = y_label_encoder.transform(y_str)
 
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42) #random_state: fixes the seed so the results are deterministic
 
     if model == "1": 
         from sklearn.ensemble import RandomForestClassifier
