@@ -13,11 +13,36 @@ from datetime import datetime
 from glob import glob
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
+from sklearn.metrics import (accuracy_score,
+                             precision_score,
+                             recall_score,
+                             f1_score,
+                             confusion_matrix,
+                             r2_score,
+                             mean_squared_error)
 
 
 def hash_ip(ip):
     return int(hashlib.md5(ip.encode('utf-8')).hexdigest(), 16)
+
+
+def MAPE(y_true, y_pred):
+    # Mean Absolute Percentage Error (MAPE).
+
+    # Calculates the absolute percentage error for each pair of values
+    errors = []
+    for true_val, pred_val in zip(y_true, y_pred):
+        if true_val != 0:  # Evita divisão por zero
+            error = abs((true_val - pred_val) / true_val)
+            errors.append(error)
+
+    # Calculates the average of absolute percentage errors
+    # mape_value = sum(errors) / len(errors) * 100
+    
+    mape_value = sum(errors) / len(errors)
+
+    return mape_value
+
 
 def train(model):
     files = glob("./dataset/trainning/*.csv")
@@ -125,11 +150,15 @@ def train(model):
 
     # Evaluating the model performance
     print("[DEBUG] Performance's statistical data:")
-    print("Accuracy:", accuracy_score(y_test, y_pred))
-    print("Precision:", precision_score(y_test, y_pred, average="weighted"))
-    print("Recall:", recall_score(y_test, y_pred, average="weighted"))
-    print("F1-score:", f1_score(y_test, y_pred, average="weighted"))
-
+    print("Accuracy  :", round(accuracy_score(y_test, y_pred), 3))
+    print("Precision :", round(precision_score(y_test, y_pred, average="weighted"), 3))
+    print("Recall    :", round(recall_score(y_test, y_pred, average="weighted"), 3))
+    print("F1-score  :", round(f1_score(y_test, y_pred, average="weighted"), 3))
+    print("R²-score  :", round(r2_score(y_test, y_pred), 3))
+    print("MSE       :", round(mean_squared_error(y_test, y_pred), 3))
+    print("RMSE      :", round(np.sqrt(mean_squared_error(y_test, y_pred)), 3))
+    print("MAPE      :", round(MAPE(y_test, y_pred), 3))
+   
     conf_matrix = confusion_matrix(y_test, y_pred)
     print("[DEBUG] Confusion Matrix:") #DEBUG
     print(conf_matrix) #DEBUG
