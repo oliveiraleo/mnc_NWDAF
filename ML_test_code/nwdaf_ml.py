@@ -21,6 +21,7 @@ def hash_ip(ip):
 
 def train(model):
     files = glob("./dataset/trainning/*.csv")
+    files.sort() # sort files' names in alphabetical order
     
     df=[]
     labels = ["ping","video","web"]
@@ -233,7 +234,7 @@ def inference(file, label_encoder,protocol_encoder, scaler, model):
     # Print the label of the class with the highest number of occurrences
     most_frequent_class_label = probabilities_count_df.idxmax()
     #probability_of_class = TODO calculate this, if necessary
-    print("[INFO] Inference: The class of the input probably is", most_frequent_class_label) #TODO save this result somewhere
+    print("[INFO] Inference: The class of the input probably is", most_frequent_class_label.upper()) #TODO save this result somewhere
     # print(f"[INFO] with {probability_of_class}% of chance")
     
     # Get the current date and time
@@ -284,7 +285,7 @@ def main():
                 start = t.time()
                 inference(p,label_encoder,protocol_encoder, scaler, model)
                 end = t.time()
-                print("Execution time:",dt.timedelta(seconds=end - start))
+                print("[INFO] Execution time:",dt.timedelta(seconds=end - start))
             except ValueError as valueErr:
                 print("[ERROR]", type(valueErr).__name__, valueErr)
                 print("[ERROR] Could not find some labels")
