@@ -164,13 +164,16 @@ def train(model):
     print("[DEBUG] Confusion Matrix:") #DEBUG
     print(conf_matrix) #DEBUG
 
+    font_size = 14
+    plt.figure(figsize=(8,6), dpi=300)
     # Plot confusion matrix as a heatmap
-    sns.heatmap(conf_matrix, annot=True, fmt="d", cmap="Blues", xticklabels=label_encoder.classes_, yticklabels=label_encoder.classes_)
-    plt.title("Confusion Matrix")
-    plt.xlabel("Predicted Label")
-    plt.ylabel("True Label")
+    sns.set(font_scale=1.4)
+    sns.heatmap(conf_matrix, annot=True, fmt="d", cmap="Blues", xticklabels=label_encoder.classes_, yticklabels=label_encoder.classes_, annot_kws={"size": font_size + 2})
+    plt.title("Confusion Matrix", fontsize=font_size)
+    plt.xlabel("Predicted Label", fontsize=font_size)
+    plt.ylabel("True Label", fontsize=font_size)
 
-    plt.savefig("results/training_confusion_matrix.pdf")
+    plt.savefig("results/training_confusion_matrix.pdf", dpi=300, bbox_inches='tight')
     # plt.show() # DEBUG
     
     # File name to save data
