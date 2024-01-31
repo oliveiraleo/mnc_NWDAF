@@ -117,7 +117,7 @@ def train(model):
         from sklearn.ensemble import RandomForestClassifier
 
         # Creating a Random Forest Classifier
-        model = RandomForestClassifier(n_estimators=100,max_depth=2000)
+        model = RandomForestClassifier(n_estimators=1182, max_depth=2052, min_samples_split=6, min_samples_leaf=13)
 
     elif model == "2": 
         # Creating a Mult Layer Perceptron Classifier
@@ -129,7 +129,7 @@ def train(model):
         # Creating a Decision Tree Classifier
         from sklearn.tree import DecisionTreeClassifier
 
-        model = DecisionTreeClassifier()
+        model = DecisionTreeClassifier(min_samples_split=15, min_samples_leaf=20)
 
     else: 
         print(f"[ERROR] Option {model} for model doesn't exist")
