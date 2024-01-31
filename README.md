@@ -48,6 +48,8 @@ pip install flask
 pip install tensorflow
 ```
 
+**NOTE:** The interoperability between the NWDAF and the ML functionality has not been completed yet, so if you are using a constrained computational environment, you can skip installing tensorflow and it's dependencies
+
 5. Add Go Lang support
 
 **NOTE:** If Go version specified on [the first section](./README.md#tested-environment-configuration) is already installed, skip this step
@@ -220,3 +222,59 @@ Python module can be run on "main.py" which located in "nwdaf/pythonmodule" fold
 temp_requester is the requester function which can be using on other NFs. 
 
 If you want to call NWDAF from other NFs, the function in this requester can be used. -->
+
+## Using the ML Functionality
+
+After completing the installation of the environment and capturing packages into files you are ready to begin with the Machine Learning tests
+
+### Reproducing Our Environment
+
+To reproduce our results, just follow the instructions below
+
+#### 1. Load the Execution Environment
+
+If not done yet, clone the repository using
+
+```
+git clone -b mnc_Public-5G https://github.com/oliveiraleo/mnc_NWDAF.git
+cd mnc_Public-5G
+```
+
+Create and load a Python virtual environment
+
+```
+python -m venv pyvenv
+source pyvenv/bin/activate
+pip install -r requirements.txt
+```
+
+**NOTE:** The interoperability between the NWDAF and the ML functionality has not been completed yet, so if you are using a constrained computational environment, you can skip installing tensorflow and it's dependencies
+
+Then create the `results` folder
+
+```
+cd ML_test_code/
+mkdir results
+```
+
+#### 2. Run the ML script
+
+```
+cd ML_test_code/
+python nwdaf_ml.py
+```
+
+**NOTE:** The current state of the implementation uses relative paths for interacting with the files on the HDD, this is why you need to enter the `ML_test_code` folder
+
+Now it's only a matter of using the menus to guide the execution. Keep in mind that the two possible flows of execution should be 
+
+- I- Train and save model > Inference; or
+- II- Load model > Inference
+
+**NOTE:** The model file is overwriten each time training is executed. The same behavior applies to the files under the `results` folder for each run of the script
+
+### Using Our Environment
+
+Utilizing the implemented environment is straightforward. To incorporate your custom data, place it within the `dataset` folder, with training and inference data allocated to their respective folders bearing the same names
+
+Following the data transfer, if necessary, modify the `labels` list on the 53rd line of the [nwdaf_ml.py](./ML_test_code/nwdaf_ml.py) file. Then run the commands from the [section above](./README.md#reproducing-our-environment)
