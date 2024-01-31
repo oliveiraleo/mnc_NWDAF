@@ -46,12 +46,14 @@ def print_frequency_data(freq_data_list):
         print("[INFO] Finished printing data frame", counter)
 
 # File paths
-train_paths = ["./train/1ping-capture-intervals.csv", "./train/2video-capture-1k.csv", "./train/3web-capture-1k.csv"]
-inference_paths = ["./inference/1ping-capture-intervals-inference.csv", "./inference/2video-capture-inference.csv", "./inference/3web-capture-inference.csv"]
+training_path = "./dataset/training/"
+inference_path = "./dataset/inference/"
+training_file_paths = [training_path + "1ping-capture-intervals.csv", training_path + "2video-capture-1k.csv", training_path + "3web-capture-1k.csv"]
+inference_file_paths = [inference_path + "1ping-capture-intervals-inference.csv", inference_path + "2video-capture-inference.csv", inference_path + "3web-capture-inference.csv"]
 
 # Read CSV files
-train_dfs = [read_csv(path) for path in train_paths]
-inference_dfs = [read_csv(path) for path in inference_paths]
+train_dfs = [read_csv(path) for path in training_file_paths]
+inference_dfs = [read_csv(path) for path in inference_file_paths]
 
 # Extract frequency information
 # as the features are the same on all files, no need to do that for all of them
