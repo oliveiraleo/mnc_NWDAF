@@ -46,8 +46,12 @@ def MAPE(y_true, y_pred):
 
 
 def train(model):
-    files = glob("./dataset/trainning/*.csv")
+    files = glob("./dataset/training/*.csv")
     files.sort() # sort files' names in alphabetical order
+
+    if not files: # check if glob is empty
+        print("[ERROR] No files were read by glob. Please, check its path")
+        exit()
     
     df=[]
     labels = ["ping","video","web"]
