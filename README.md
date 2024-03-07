@@ -295,3 +295,11 @@ Now it's only a matter of using the menus to guide the execution. Keep in mind t
 Utilizing the implemented environment is straightforward. To incorporate your custom data, place it within the `dataset` folder, with training and inference data allocated to their respective folders bearing the same names
 
 Following the data transfer, if necessary, modify the `labels` list on the 53rd line of the [nwdaf_ml.py](./ML_test_code/nwdaf_ml.py) file. Then run the commands from the [section above](./README.md#reproducing-our-environment)
+
+## License
+
+The original code from upstream did not explicitly specify any license terms. However, the [work contained in this repository](https://github.com/net-ty/mnc_NWDAF/compare/mnc_Public-5G...oliveiraleo:mnc_NWDAF:mnc_Public-5G) is licensed under the GPLv3, as indicated in the [LICENSE](./LICENSE) file, which is reflected in the notice provided below:
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License version 3 as published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
