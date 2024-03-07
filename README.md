@@ -6,6 +6,8 @@ This code was designed to run on the free5GC 5G core and its detailed descriptio
 
 As the execution environment has many components, the tested working versions of the main ones are listed down below:
 
+### Software
+
 - python: 3.8.10 (works with 3.7.x too)
 - pip: 23.3.1
 - tensorflow: 2.13.1
@@ -17,11 +19,17 @@ As the execution environment has many components, the tested working versions of
 
 **NOTE:** List updated on December, 2023
 
+### Hardware 
+
+Please, check this [other file here](./VMs-setup.md#requirements)
+
 ## Configuring the free5GC
 
-Detailed instructions won't be added here as it isn't in the scope of this document, however as a general advice you should install the free5GC and then follow [these instructions](https://free5gc.org/guide/5-install-ueransim/#5-setting-free5gc-and-ueransim-parameters) configuring the IP address on AMF, SMF and UPF configuration files.
+Detailed instructions won't be added here as it isn't in the scope of this document, however as a general advice you should [install](https://free5gc.org/guide/#free5gc-installation-guide) the free5GC project and then follow [these instructions](https://free5gc.org/guide/5-install-ueransim/#5-setting-free5gc-and-ueransim-parameters) configuring the IP address on AMF, SMF and UPF configuration files.
 
-**TIP:** One should change the loopback IPs (127.0.0.x) to the one used by the LAN interface
+**TIP:** You should change the loopback IPs (127.0.0.x) to the one used by the LAN interface
+
+**NOTE:** This [other repository](https://github.com/oliveiraleo/free5gc-auto-deploy) may help you get started with the free5GC setup
 
 ## Install the prerequisites
 

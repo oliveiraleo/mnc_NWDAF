@@ -4,13 +4,16 @@ This instructions and additional information aim to help setting up the environm
 
 ## Requirements
 
-In order to run the tests, please, make sure the requirements are met
+In order to run the traffic classification experiments, please, make sure the requirements below are met
 
 ### Hardware (minimum requirements)
 
-- free5GC (2 CPU cores + 2GB RAM)
-- UERANSIM (2 CPU cores + 2GB RAM)
-- The 3 servers (2 CPU cores + 2GB RAM each)
+- free5GC (2 i5 CPU cores + 2GB RAM)
+- UERANSIM (2 i5 CPU cores + 2GB RAM)
+- The 3 servers (1 i5 CPU core + 1GB RAM each)
+- 100GB HDD (20GB for each VM)
+
+**NOTE:** The number of CPUs and amount of RAM will impact directly the time required to build the software. After building, you may be able to run the experiments (ML and packet capture) with 1 CPU core + 1GB RAM specifications.
 
 ### Software
 
@@ -18,6 +21,7 @@ In order to run the tests, please, make sure the requirements are met
 - UERANSIM v3.2.6
 - go 1.18.10
 - tshark 3.2.3-1  
+- Ubuntu Server 20.04.3 (works on 20.04.6 too)
 
 
 ## Prerequisites
