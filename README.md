@@ -23,6 +23,14 @@ As the execution environment has many components, the tested working versions of
 
 Please, check this [other file here](./VMs-setup.md#requirements)
 
+### Quick comparison between [Kim et al. 2022] and our work
+
+The authors of [[Kim et al. 2022]](https://doi.org/10.1109/ICCE53296.2022.9730290) implemented the NWDAF module and its submodules (MTLF and AnLF) integrated to free5GC, however, they used an image dataset as their ML functionality.
+
+First, a reprodction of [Kim et al. 2022]'s work was made (this README details the environment used in this process). After that, [another ML functionality](./ML_test_code/) closely related to Computer Networks field was implemented. Instead of using an image dataset, a [packet capture dataset](https://github.com/oliveiraleo/mnc_NWDAF/tree/mnc_Public-5G/ML_test_code/dataset) containing 6 captures of 1000 packets each was created. This dataset was used to test the new ML functionality and the instructions to reproduce the environment used for this second phase are located on [this other file here](./VMs-setup.md). 
+
+Currently, the integration between [Kim et al. 2022]'s NWDAF and our ML functionality isn't finished yet, so Keras and TesorFlow are not being used on our experiment.
+
 ## Configuring the free5GC
 
 Detailed instructions won't be added here as it isn't in the scope of this document, however as a general advice you should [install](https://free5gc.org/guide/#free5gc-installation-guide) the free5GC project and then follow [these instructions](https://free5gc.org/guide/5-install-ueransim/#5-setting-free5gc-and-ueransim-parameters) configuring the IP address on AMF, SMF and UPF configuration files.
@@ -151,14 +159,13 @@ cd ~/free5gc/nwdaf/Temp_Requester/
 go run temp_requester.go
 ```
 
-TODO: Format the text on the paragraph below or remove it
+After that, you should select your number:
 
-After that, you should select your number
-If "1" is selected, MTLF (model training function) is executed.
-Otherwise, "2" is selected, AnLF (analytics function) is executed.
-Then, you can try to select a number which means the dataset number.
-Now, we using the EMNIST dataset, which is in the python module.
-In temp_requester, the image is not transmitted (using the json, the data number is transmitted).
+- If "1" is selected, MTLF (model training function) is executed.
+- Otherwise, "2" is selected, AnLF (analytics function) is executed.
+- Then, you can try to select a number which means the dataset number.
+
+Currently, the EMNIST dataset which is in the python module is being used. In Temp_Requester, the image is not transmitted (the data number is transmitted using the json).
 
 ## Configuring and Using UERANSIM
 
@@ -216,6 +223,8 @@ sudo build/nr-ue -c config/free5gc-ue.yaml
 ## Installing the Virtual Environment 
 
 To install the virtual test environment, please, refer to the file [VMs-setup.md](./VMs-setup.md)
+
+For more information regarding this second phase, please refer to [this section](./README.md#quick-comparison-between-kim-et-al-2022-and-our-work) and to the file linked above.
 
 <!-- TODO: Finish merging the info below
 
