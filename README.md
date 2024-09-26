@@ -296,6 +296,28 @@ Utilizing the implemented environment is straightforward. To incorporate your cu
 
 Following the data transfer, if necessary, modify the `labels` list on the 53rd line of the [nwdaf_ml.py](./ML_test_code/nwdaf_ml.py) file. Then run the commands from the [section above](./README.md#reproducing-our-environment)
 
+## Citing this work
+
+If you used our [dataset](./ML_test_code/dataset/) or found the code useful, please, use the citation:
+
+Oliveira, L., Silva, R., Lima, P., Pereira, A., Valadares, J., Silva, E., & Dantas, M. (2024). Análise da Funcionalidade da NWDAF no Core 5G Sobre um Conjunto de Dados. In *Anais do XLII Simpósio Brasileiro de Redes de Computadores e Sistemas Distribuídos*, (pp. 798-811). Porto Alegre: SBC. doi:10.5753/sbrc.2024.1474
+
+Or use the BibTex below:
+
+@inproceedings{sbrc,
+ author = {Leonardo Oliveira and Rodrigo Silva and Pedro Lima and Antônio Pereira and Júlia Valadares and Edelberto Silva and Mário Dantas},
+ title = {Análise da Funcionalidade da NWDAF no Core 5G Sobre um Conjunto de Dados},
+ booktitle = {Anais do XLII Simpósio Brasileiro de Redes de Computadores e Sistemas Distribuídos},
+ location = {Niterói/RJ},
+ year = {2024},
+ issn = {2177-9384},
+ pages = {798--811},
+ publisher = {SBC},
+ address = {Porto Alegre, RS, Brasil},
+ doi = {10.5753/sbrc.2024.1474},
+ url = {https://sol.sbc.org.br/index.php/sbrc/article/view/29836}
+}
+
 ## License
 
 The original code from upstream did not explicitly specify any license terms. However, the [work contained in this repository](https://github.com/net-ty/mnc_NWDAF/compare/mnc_Public-5G...oliveiraleo:mnc_NWDAF:mnc_Public-5G) is licensed under the GPLv3, as indicated in the [LICENSE](./LICENSE) file, which is reflected in the notice provided below:
