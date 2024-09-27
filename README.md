@@ -304,6 +304,7 @@ Oliveira, L., Silva, R., Lima, P., Pereira, A., Valadares, J., Silva, E., & Dant
 
 Or use the BibTex below:
 
+```
 @inproceedings{sbrc,
  author = {Leonardo Oliveira and Rodrigo Silva and Pedro Lima and Antônio Pereira and Júlia Valadares and Edelberto Silva and Mário Dantas},
  title = {Análise da Funcionalidade da NWDAF no Core 5G Sobre um Conjunto de Dados},
@@ -317,6 +318,7 @@ Or use the BibTex below:
  doi = {10.5753/sbrc.2024.1474},
  url = {https://sol.sbc.org.br/index.php/sbrc/article/view/29836}
 }
+```
 
 ## License
 
