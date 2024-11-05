@@ -298,11 +298,26 @@ Following the data transfer, if necessary, modify the `labels` list on the 53rd 
 
 ## Citing this work
 
-If you used our [dataset](./ML_test_code/dataset/) or found the code useful, please, use the citation:
+If you used our [dataset](./ML_test_code/dataset/) or found this repository useful, please, cite it as:
 
-Oliveira, L., Silva, R., Lima, P., Pereira, A., Valadares, J., Silva, E., & Dantas, M. (2024). Análise da Funcionalidade da NWDAF no Core 5G Sobre um Conjunto de Dados. In *Anais do XLII Simpósio Brasileiro de Redes de Computadores e Sistemas Distribuídos*, (pp. 798-811). Porto Alegre: SBC. doi:10.5753/sbrc.2024.1474
+L. A. de Oliveira, E. Franco Silva and M. A. Ribeiro Dantas, "A NWDAF Study Employing Machine Learning Models on a Simulated 5G Network Dataset," *2024 IEEE Symposium on Computers and Communications (ISCC)*, Paris, France, 2024, pp. 1-6, doi: 10.1109/ISCC61673.2024.10733717.,
 
 Or use the BibTex below:
+
+```
+@INPROCEEDINGS{10733717,
+  author={{de Oliveira}, Leonardo Azalim and Franco Silva, Edelberto and Ribeiro Dantas, Mário Antônio},
+  booktitle={2024 IEEE Symposium on Computers and Communications (ISCC)}, 
+  title={A NWDAF Study Employing Machine Learning Models on a Simulated 5G Network Dataset}, 
+  year={2024},
+  pages={1-6},
+  keywords={Adaptation models;Data analysis;Accuracy;Protocols;5G mobile communication;Computational modeling;Machine learning;Reproducibility of results;3GPP;Testing;5G;NWDAF;Network Traffic Characterization;Classification},
+  doi={10.1109/ISCC61673.2024.10733717}
+}
+```
+Or in Portuese:
+
+Oliveira, L., Silva, R., Lima, P., Pereira, A., Valadares, J., Silva, E., & Dantas, M. (2024). Análise da Funcionalidade da NWDAF no Core 5G Sobre um Conjunto de Dados. In *Anais do XLII Simpósio Brasileiro de Redes de Computadores e Sistemas Distribuídos*, (pp. 798-811). Porto Alegre: SBC. doi:10.5753/sbrc.2024.1474
 
 ```
 @inproceedings{sbrc,
