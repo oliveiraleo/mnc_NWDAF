@@ -2,6 +2,10 @@
 
 This code was designed to run on the free5GC 5G core and its detailed description is located below.
 
+## Important Information
+
+A newer version of this source code is available on [this repository](https://github.com/netlabufjf/nwdaf_ml) (see [this quick comparison](https://github.com/netlabufjf/nwdaf_ml#quick-comparison-between-kim-et-al-2022-our-previous-work-and-current-work))
+
 ## Tested Environment Configuration
 
 As the execution environment has many components, the tested working versions of the main ones are listed down below:
